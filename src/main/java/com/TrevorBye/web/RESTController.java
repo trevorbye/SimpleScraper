@@ -20,8 +20,6 @@ import static com.TrevorBye.POJO.StaticMethods.*;
 @RestController
 public class RESTController {
 
-    //Todo: in documentation, clarify that spaces must be escaped with "+". Primarily for class/id names. Write tests for this
-
     @RequestMapping("/getFullDomStructure/**")
     public ResponseEntity<?> getFullDomStructure(HttpServletRequest request) throws IOException {
         String encodedUrl = new AntPathMatcher().extractPathWithinPattern("/getFullDomStructure/**", request.getRequestURI());
