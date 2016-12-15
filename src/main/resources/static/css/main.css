@@ -17,7 +17,7 @@ a:visited {
 }
 
 a:hover {
-    color: #ff6;
+    color: #ffffff;
 }
 
 .logo {
@@ -25,7 +25,7 @@ a:hover {
 }
 
 .logo:hover {
-    color: #ff6;
+    color: #ffffff;
 }
 
 .wrapper {
@@ -121,42 +121,3 @@ a:hover {
 #second {
     display: inline-block;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
