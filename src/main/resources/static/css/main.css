@@ -17,7 +17,15 @@ a:visited {
 }
 
 a:hover {
-    color: #ffffff;
+    color: #ff6;
+}
+
+.logo {
+    color: #000000;
+}
+
+.logo:hover {
+    color: #ff6;
 }
 
 .wrapper {
@@ -53,8 +61,6 @@ a:hover {
     font-weight: 100;
     font-size: 36px;
 }
-
-
 
 @media (max-width: 360px) {
 
@@ -102,7 +108,6 @@ a:hover {
 
 }
 
-
 #foot-wrapper {
     display: block;
     margin-left: auto;
@@ -116,15 +121,6 @@ a:hover {
 #second {
     display: inline-block;
 }
-
-.logo {
-    color: #000000;
-}
-
-.logo:hover {
-    color: #ffffff;
-}
-
 
 
 
