@@ -15,6 +15,10 @@ body {
     color: #00ced1;
 }
 
+.github-link:hover {
+    color: #ffffff;
+}
+
 .logo {
     color: #000000;
 }
