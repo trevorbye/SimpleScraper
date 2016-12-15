@@ -25,12 +25,6 @@ public class RESTControllerTest {
     }
 
     @Test
-    public void homeUriReturns404() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(status().is(404));
-    }
-
-    @Test
     public void getFullDomStructure_ShouldReturn200StatusAndJsonFormat() throws Exception {
         mockMvc.perform(get(new URI("/getFullDomStructure/https%253A%252F%252Fspring.io%252Fguides%252Fgs%252Fhandling-form-submission%252F")))
                 .andExpect(status().is(200))
@@ -50,15 +44,19 @@ public class RESTControllerTest {
     }
 
     @Test
-    public void getElementById_ShouldReturn204WhenIdDoesNotExist() throws Exception {
+    public void getElementById_ShouldReturn204WhenIdDoesNotExistAndErrorResponseJson() throws Exception {
         mockMvc.perform(get(new URI("/getDomNodeById/invalid-id/https%253A%252F%252Fspring.io%252Fguides%252Fgs%252Fhandling-form-submission%252F")))
-                .andExpect(status().is(204));
+                .andExpect(status().is(204))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.error", Matchers.is("ID COULD NOT BE FOUND.")));
     }
 
     @Test
-    public void getElementById_ShouldReturn400WhenInvalidUrl() throws Exception {
+    public void getElementById_ShouldReturn400WhenInvalidUrlAndErrorResponseJson() throws Exception {
         mockMvc.perform(get(new URI("/getDomNodeById/invalid-id/www.testbadurlcom%252Fmalformed")))
-                .andExpect(status().is(400));
+                .andExpect(status().is(400))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.error", Matchers.is("MALFORMED URL.")));
     }
 
     @Test
@@ -79,15 +77,29 @@ public class RESTControllerTest {
     }
 
     @Test
-    public void isUrlValid_ShouldReturnStatus400ForInvalidUrl() throws Exception {
-        mockMvc.perform(get(new URI("/validUrl/www.google.com")))
-                .andExpect(status().is(400));
+    public void isUrlValid_ShouldReturnStatus200ForInvalidUrl() throws Exception {
+        mockMvc.perform(get(new URI("/validUrl/ww.google.com")))
+                .andExpect(status().is(200));
     }
 
     @Test
     public void isUrlValid_ShouldReturnStatus200ForValidUrl() throws Exception {
         mockMvc.perform(get(new URI("/validUrl/https%253A%252F%252Fwww.google.com")))
                 .andExpect(status().is(200));
+    }
+
+    @Test
+    public void isUrlValid_ShouldReturnValidUrlJsonForMalformedUrl() throws Exception {
+        mockMvc.perform(get(new URI("/validUrl/ww.google.com")))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.validUrl", Matchers.is(false)));
+    }
+
+    @Test
+    public void isUrlValid_ShouldReturnValidUrlJsonForValidUrl() throws Exception {
+        mockMvc.perform(get(new URI("/validUrl/https%253A%252F%252Fwww.google.com")))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.validUrl", Matchers.is(true)));
     }
 }
 

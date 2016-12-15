@@ -1,6 +1,8 @@
 package com.TrevorBye.web;
 
 import com.TrevorBye.POJO.DomNode;
+import com.TrevorBye.POJO.ErrorResponse;
+import com.TrevorBye.POJO.ValidUrl;
 import org.jsoup.nodes.Element;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +22,6 @@ import static com.TrevorBye.POJO.StaticMethods.*;
 @RestController
 public class RESTController {
 
-    //Todo: in documentation, clarify that spaces must be escaped with "+". Primarily for class/id names. Write tests for this
-
     @RequestMapping("/getFullDomStructure/**")
     public ResponseEntity<?> getFullDomStructure(HttpServletRequest request) throws IOException {
         String encodedUrl = new AntPathMatcher().extractPathWithinPattern("/getFullDomStructure/**", request.getRequestURI());
@@ -31,11 +31,11 @@ public class RESTController {
         try {
             elementList = getAllElements(scrapeUrl);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>("MALFORMED URL.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse("MALFORMED URL."), HttpStatus.BAD_REQUEST);
         }
 
         if (elementList.isEmpty()) {
-            return new ResponseEntity<>("DOM STRUCTURE IS MISSING OR OTHERWISE NOT UNDERSTOOD BY THIS API.", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new ErrorResponse("DOM STRUCTURE IS MISSING OR OTHERWISE NOT UNDERSTOOD BY THIS API."), HttpStatus.NO_CONTENT);
         }
 
         List<DomNode> domNodes = new ArrayList<>();
@@ -59,11 +59,11 @@ public class RESTController {
         try {
             elementList = getClassListStarting(decodedClassName, scrapeUrl);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>("MALFORMED URL.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse("MALFORMED URL."), HttpStatus.BAD_REQUEST);
         }
 
         if (elementList.isEmpty()) {
-            return new ResponseEntity<>("CLASS COULD NOT BE FOUND.", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new ErrorResponse("CLASS COULD NOT BE FOUND."), HttpStatus.NO_CONTENT);
         }
 
         List<DomNode> domNodes = new ArrayList<>();
@@ -88,11 +88,11 @@ public class RESTController {
         try {
             element = getById(scrapeUrl,decodedId);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>("MALFORMED URL.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse("MALFORMED URL."), HttpStatus.BAD_REQUEST);
         }
 
         if (element == null) {
-            return new ResponseEntity<>("ID COULD NOT BE FOUND.", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new ErrorResponse("ID COULD NOT BE FOUND."), HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(buildDomReturn(element), HttpStatus.OK);
         }
@@ -110,11 +110,11 @@ public class RESTController {
         try {
             pageLinks = getAllPageLinks(scrapeUrl, abs);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>("MALFORMED URL.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse("MALFORMED URL."), HttpStatus.BAD_REQUEST);
         }
 
         if (pageLinks.size() == 0) {
-            return new ResponseEntity<>("NO LINKS FOUND. POTENTIALLY CORRUPT DOM STRUCTURE.", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new ErrorResponse("NO LINKS FOUND. POTENTIALLY CORRUPT DOM STRUCTURE."), HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(pageLinks, HttpStatus.OK);
         }
@@ -131,10 +131,10 @@ public class RESTController {
         try {
             validJsoupUrl(scrapeUrl);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ValidUrl(false), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(new ValidUrl(true), HttpStatus.OK);
     }
 
 }
