@@ -1,23 +1,23 @@
 html, body {
-    background-color: rebeccapurple;
+    background-color: #663399;
     font-family: 'Raleway', sans-serif;
-    color: white;
+    color: #ffffff;
     font-weight: 100;
     font-size: 15px;
 }
 
 .link-nav a {
-    color: darkturquoise;
+    color: #00ced1;
     font-weight: 200;
     text-decoration: none;
 }
 
 a:visited {
-    color: white;
+    color: #ffffff;
 }
 
 a:hover {
-    color: white;
+    color: #ffffff;
 }
 
 .wrapper {
@@ -118,11 +118,11 @@ a:hover {
 }
 
 .logo {
-    color: black;
+    color: #000000;
 }
 
 .logo:hover {
-    color: white;
+    color: #ffffff;
 }
 
 
