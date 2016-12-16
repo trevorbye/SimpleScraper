@@ -36,15 +36,15 @@ a:focus {
 }
 
 .logo:hover {
-    color: #2a2b2b;
+    color: #1c1c1c;
 }
 
 .logo:focus {
-    color: #2a2b2b;
+    color: #1c1c1c;
 }
 
 .logo:active {
-    color: #2a2b2b;
+    color: #1c1c1c;
 }
 
 .logo:visited {
