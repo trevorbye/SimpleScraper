@@ -6,6 +6,10 @@ body {
     font-size: 16px;
 }
 
+a:focus {
+    outline:0 !important;
+}
+
 .github-link {
     color: #00ced1;
     text-decoration: none;
@@ -19,16 +23,32 @@ body {
     color: #ffffff;
 }
 
+.gitgub-link:active {
+    color: #ffffff;
+}
+
+.github-link:focus {
+    color: #ffffff;
+}
+
 .logo {
     color: #000000;
 }
 
 .logo:hover {
-    color: #ffffff;
+    color: #2a2b2b;
+}
+
+.logo:focus {
+    color: #2a2b2b;
+}
+
+.logo:active {
+    color: #2a2b2b;
 }
 
 .logo:visited {
-    color: black;
+    color: #000000;
 }
 
 .wrapper {
