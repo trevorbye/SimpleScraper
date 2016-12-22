@@ -20,7 +20,7 @@ import java.util.List;
 import static com.TrevorBye.POJO.StaticMethods.*;
 
 @RestController
-public class RESTController {
+class RESTController {
 
     @RequestMapping("/getFullDomStructure/**")
     public ResponseEntity<?> getFullDomStructure(HttpServletRequest request) throws IOException {
@@ -131,7 +131,7 @@ public class RESTController {
         try {
             validJsoupUrl(scrapeUrl);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(new ValidUrl(false), HttpStatus.OK);
+                return new ResponseEntity<>(new ValidUrl(false), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(new ValidUrl(true), HttpStatus.OK);

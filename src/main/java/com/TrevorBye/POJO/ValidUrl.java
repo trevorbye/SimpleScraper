@@ -10,4 +10,8 @@ public class ValidUrl {
     public Boolean getValidUrl() {
         return validUrl;
     }
+
+    public void setValidUrl(Boolean validUrl) {
+        this.validUrl = validUrl;
+    }
 }

@@ -77,12 +77,6 @@ public class RESTControllerTest {
     }
 
     @Test
-    public void isUrlValid_ShouldReturnStatus200ForInvalidUrl() throws Exception {
-        mockMvc.perform(get(new URI("/validUrl/ww.google.com")))
-                .andExpect(status().is(200));
-    }
-
-    @Test
     public void isUrlValid_ShouldReturnStatus200ForValidUrl() throws Exception {
         mockMvc.perform(get(new URI("/validUrl/https%253A%252F%252Fwww.google.com")))
                 .andExpect(status().is(200));
